@@ -34,8 +34,8 @@ class DoublyLinkedList:
             self.tail = node
         elif self.head == self.tail:
             node = ListNode(value=value, prev=None, next=self.head)
+            self.head.prev = node
             self.head = node
-            self.tail = node.next
         else:
             node = ListNode(value=value, prev=None, next=self.head)
             self.head = node
@@ -73,11 +73,12 @@ class DoublyLinkedList:
             self.head = node
             self.tail = node
         elif self.head == self.tail:
-            node = ListNode(value=value, prev=self.head, next=None)
-            self.head = node.prev
+            node = ListNode(value=value, prev=self.tail, next=None)
+            self.tail.next = node
             self.tail = node
         else:
             node = ListNode(value=value, prev=self.tail, next=None)
+            self.tail.next = node
             self.tail = node
         self.length += 1
         return self
@@ -107,16 +108,46 @@ class DoublyLinkedList:
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
+        if node == self.head:
+            return self
+        elif node == self.tail:
+            node.prev.next = None
+            self.tail = node.prev
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
+            node.prev = None
+        else:
+            node.prev.next = node.next
+            node.next.prev = node.prev
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
+            node.prev = None
 
-        pass
+
 
     """
     Removes the input node from its current spot in the
     List and inserts it as the new tail node of the List.
     """
     def move_to_end(self, node):
-        pass
-
+        if node == self.tail:
+            return self
+        elif node == self.head:
+            node.next.prev = None
+            self.head = node.next
+            self.tail.next = node
+            node.prev = self.tail
+            self.tail = node
+            node.next = None
+        else:
+            node.prev.next = node.next
+            node.next.prev = node.prev
+            node.prev  = self.tail
+            self.tail.next = node
+            self.tail = node
+            node.next = None
     """
     Deletes the input node from the List, preserving the
     order of the other elements of the List.
