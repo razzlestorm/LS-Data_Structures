@@ -38,6 +38,7 @@ class DoublyLinkedList:
             self.head = node
         else:
             node = ListNode(value=value, prev=None, next=self.head)
+            self.head.prev = node
             self.head = node
         self.length += 1
         return self
