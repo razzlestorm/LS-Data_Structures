@@ -61,28 +61,50 @@ class BSTNode:
         if self.right:
             self.right.for_each(fn)
 
+    def delete(self, target):
+        # If node at bottom
+        # if node
+        if self.value == target:
+            return True
+        elif target < self.value:
+            if self.left is None:
+                return False
+            else:
+               return self.left.contains(target)
+        else:
+            if self.right is None:
+                return False
+            else:
+                return self.right.contains(target)
+
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self):
         if self.left:
-            print(self.left.in_order_print())
-            if self.right:
-                print(self.right.value)
-        else:
-            print(self.value)
-            if self.right:
-                print(self.right.in_order_print())
+            self.left.in_order_print()
+        print(self.value)
+        if self.right:
+            self.right.in_order_print()
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self):
+        # use a queue
+        # print current node, add left child to queue, add right child toqueue
+        # if not none
+        # done when queue is empty
         pass
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self):
+        # create a stack
+        # push initial values onto stack
+        # while stack is not empty:
+        # pop something and print it
+        # push right > parent > left onto stack (FILO)
         pass
 
     # Stretch Goals -------------------------
